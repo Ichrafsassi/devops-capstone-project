@@ -1,0 +1,71 @@
+[git-clone : clone] + '[' false = true ']'
+[git-clone : clone] + '[' false = true ']'
+[git-clone : clone] + '[' false = true ']'
+[git-clone : clone] + CHECKOUT_DIR=/workspace/output/
+[git-clone : clone] + '[' -d /workspace/output/ ']'
+[git-clone : clone] + delete_exisiting_filename_and_dirname
+[git-clone : clone] + '[' -d /workspace/output/ ']'
+[git-clone : clone] + test -d /workspace/output/
+[git-clone : clone] + cd /workspace/output/
+[git-clone : clone] + git init
+[git-clone : clone] Initialized empty Git repository in /workspace/output/.git/
+[git-clone : clone] + git config --global --add safe.directory /workspace/output
+[git-clone : clone] + git remote add origin https://github.com/Ichrafsassi/devops-capstone-project.git
+[git-clone : clone] + git fetch --authenticated-pod=false --prune --progress --origin origin main
+[git-clone : clone] From https://github.com/Ichrafsassi/devops-capstone-project
+[git-clone : clone]  * branch            main       -> FETCH_HEAD
+[git-clone : clone]  * [new branch]      main       -> origin/main
+[git-clone : clone] + git checkout -f main
+[git-clone : clone] Already on 'main'
+[git-clone : clone] Branch 'main' set up to track remote branch 'main' from 'origin'.
+[git-clone : clone] Successfully cloned https://github.com/Ichrafsassi/devops-capstone-project.git at main
+
+[lint : flake8] + flake8 service tests --count --select=E9,F63,F7,F82 --show-source --statistics
+[lint : flake8] 0
+[lint : flake8] + flake8 service tests --count --max-complexity=10 --max-line-length=127 --statistics
+[lint : flake8] 0
+
+[tests : nosetests] + nosetests -v --with-spec --spec-color --with-coverage --cover-package=service
+[tests : nosetests] Account Service Tests
+[tests : nosetests] - It should get 200_OK from the Home Page
+[tests : nosetests] - It should be healthy
+[tests : nosetests] - It should Create a new Account
+[tests : nosetests] - It should not Create an Account when sending the wrong data
+[tests : nosetests] - It should not Create an Account when sending the wrong media type
+[tests : nosetests] - It should Read a single Account
+[tests : nosetests] - It should not Read an Account that is not found
+[tests : nosetests] - It should Get a list of Accounts
+[tests : nosetests] - It should Update an existing Account
+[tests : nosetests] - It should not Update an Account that is not found
+[tests : nosetests] - It should Delete an Account
+[tests : nosetests] - It should not allow an illegal method call
+[tests : nosetests] - It should return security headers
+[tests : nosetests] - It should return CORS headers
+[tests : nosetests] Name               Stmts   Miss  Cover   Missing
+[tests : nosetests] ------------------------------------------------
+[tests : nosetests] service/__init__      23      0   100%
+[tests : nosetests] service/models       102      0   100%
+[tests : nosetests] service/routes        54      0   100%
+[tests : nosetests] ------------------------------------------------
+[tests : nosetests] TOTAL                179      0   100%
+[tests : nosetests] ----------------------------------------------------------------------
+[tests : nosetests] Ran 14 tests in 0.875s
+[tests : nosetests] OK
+
+[build : buildah] + buildah bud --storage-driver=vfs --tag=us.icr.io/sn-labs-ichrafsassi/accounts:1 .
+[build : buildah] STEP 1/7: FROM python:3.9-slim
+[build : buildah] STEP 2/7: WORKDIR /app
+[build : buildah] STEP 3/7: COPY requirements.txt .
+[build : buildah] STEP 4/7: RUN pip install --no-cache-dir -r requirements.txt
+[build : buildah] STEP 5/7: COPY service/ ./service/
+[build : buildah] STEP 6/7: RUN useradd --uid 1000 theia && chown -R theia:theia /app
+[build : buildah] STEP 7/7: CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--log-level", "info", "service:app"]
+[build : buildah] COMMIT us.icr.io/sn-labs-ichrafsassi/accounts:1
+[build : buildah] Successfully tagged us.icr.io/sn-labs-ichrafsassi/accounts:1
+
+[deploy : deploy-to-kubernetes] + kubectl apply -f deploy/deployment.yaml
+[deploy : deploy-to-kubernetes] deployment.apps/accounts configured
+[deploy : deploy-to-kubernetes] + kubectl apply -f deploy/service.yaml
+[deploy : deploy-to-kubernetes] service/accounts configured
+[deploy : deploy-to-kubernetes] + kubectl rollout status deployment/accounts
+[deploy : deploy-to-kubernetes] deployment "accounts" successfully rolled out

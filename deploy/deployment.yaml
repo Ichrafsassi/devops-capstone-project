@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: accounts
+  labels:
+    app: accounts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: accounts
+  template:
+    metadata:
+      labels:
+        app: accounts
+    spec:
+      containers:
+      - name: accounts
+        image: us.icr.io/sn-labs-ichrafsassi/accounts:1
+        ports:
+        - containerPort: 8080
+        env:
+        - name: PORT
+          value: "8080"
