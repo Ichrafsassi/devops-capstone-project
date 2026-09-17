@@ -1,15 +1,21 @@
 Run Actions / CI Build Workflow
 ✓ Set up job
+✓ Initialize containers
 ✓ Checkout code
 ✓ Set up Python 3.9
 ✓ Install dependencies
 ✓ Lint with Flake8
 ✓ Run unit tests with Nosetests
+✓ Post Checkout
+✓ Stop containers
+✓ Complete job
 
 Name: CI Build
 Status: Completed
 Result: Success
 Workflow Run Details:
+- Set up job: Completed in 2s
+- Initialize containers: Completed in 3s
 - Checkout code: Completed in 2s
 - Set up Python 3.9: Completed in 3s
 - Install dependencies: Completed in 12s
@@ -20,7 +26,20 @@ Workflow Run Details:
   0 errors
 - Run unit tests with Nosetests: Completed in 6s
   nosetests -v --with-spec --spec-color --with-coverage --cover-package=service
-  
+
+  Test Cases for Account Model
+  - It should Create an Account and assert that it exists
+  - It should Create an account and add it to the database
+  - It should Read an account
+  - It should Update an account
+  - It should Delete an account from the database
+  - It should List all Accounts in the database
+  - It should Find an Account by name
+  - It should Serialize an account
+  - It should Deserialize an account
+  - It should not Deserialize an account with a KeyError
+  - It should not Deserialize an account with a TypeError
+
   Account Service Tests
   - It should get 200_OK from the Home Page
   - It should be healthy
@@ -35,7 +54,7 @@ Workflow Run Details:
   - It should Delete an Account
   - It should not allow an illegal method call
   - It should return security headers
-  - It should return CORS headers
+  - It should return a CORS header
 
   Name               Stmts   Miss  Cover   Missing
   ------------------------------------------------
@@ -45,6 +64,9 @@ Workflow Run Details:
   ------------------------------------------------
   TOTAL                179      0   100%
   ----------------------------------------------------------------------
-  Ran 14 tests in 0.852s
+  Ran 25 tests in 0.891s
 
   OK
+- Post Checkout: Completed in 1s
+- Stop containers: Completed in 1s
+- Complete job: Completed in 1s

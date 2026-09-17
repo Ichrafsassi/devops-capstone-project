@@ -1,4 +1,8 @@
-$ curl -X GET http://localhost:8080/accounts
+$ curl -i -X GET http://localhost:8080/accounts
+HTTP/1.1 200 OK
+Content-Type: application/json
+Content-Length: 144
+
 [
   {
     "address": "123 Main St",

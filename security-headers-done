@@ -1,5 +1,18 @@
 nosetests -v --with-spec --spec-color --with-coverage --cover-package=service
 
+Test Cases for Account Model
+- It should Create an Account and assert that it exists
+- It should Create an account and add it to the database
+- It should Read an account
+- It should Update an account
+- It should Delete an account from the database
+- It should List all Accounts in the database
+- It should Find an Account by name
+- It should Serialize an account
+- It should Deserialize an account
+- It should not Deserialize an account with a KeyError
+- It should not Deserialize an account with a TypeError
+
 Account Service Tests
 - It should get 200_OK from the Home Page
 - It should be healthy
@@ -14,7 +27,7 @@ Account Service Tests
 - It should Delete an Account
 - It should not allow an illegal method call
 - It should return security headers
-- It should return CORS headers
+- It should return a CORS header
 
 Name               Stmts   Miss  Cover   Missing
 ------------------------------------------------
@@ -24,6 +37,6 @@ service/routes        54      0   100%
 ------------------------------------------------
 TOTAL                179      0   100%
 ----------------------------------------------------------------------
-Ran 14 tests in 0.891s
+Ran 25 tests in 0.891s
 
 OK
